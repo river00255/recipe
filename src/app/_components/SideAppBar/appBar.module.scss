@@ -1,0 +1,42 @@
+.container {
+  border: 1px solid #d4d4d4;
+  border-radius: 5px;
+  margin: 10px;
+  height: calc(100dvh - 20px);
+  width: 200px;
+  padding: 20px 0 0 20px;
+  position: sticky;
+  top: 10px;
+  h1 {
+    font-size: 1.4rem;
+    font-weight: 600;
+  }
+  nav {
+    margin-top: 48px;
+    > ul {
+      > li {
+        color: #525252;
+        margin-bottom: 24px;
+      }
+    }
+  }
+  @media (max-width: 960px) {
+    width: 96%;
+    margin: 10px auto;
+    height: 100px;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    > nav {
+      margin-top: 10px;
+      > ul {
+        display: flex;
+        > li {
+          margin-bottom: 0;
+          margin-right: 18px;
+          font-size: 13px;
+        }
+      }
+    }
+  }
+}
