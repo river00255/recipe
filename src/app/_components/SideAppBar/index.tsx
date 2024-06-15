@@ -10,10 +10,10 @@ const SideAppBar = () => {
       <nav>
         <ul>
           <li>
-            <Link href={'/'}>추천 레시피</Link>
+            <Link href="/recipe/recommend">추천 레시피</Link>
           </li>
           <li>
-            <Link href={'/'}>종류별 보기</Link>
+            <Link href="/recipe">종류별 보기</Link>
           </li>
         </ul>
       </nav>

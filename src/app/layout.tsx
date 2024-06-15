@@ -3,6 +3,7 @@ import localFont from 'next/font/local';
 import './reset.css';
 import './globals.css';
 import SideAppBar from './_components/SideAppBar';
+import QueryProvider from '@/lib/QueryProvider';
 
 const pretendard = localFont({
   src: './fonts/PretendardVariable.woff2',
@@ -21,10 +22,12 @@ export default function RootLayout({
   return (
     <html lang="en" className={pretendard.className}>
       <body>
-        <div className="container">
-          <SideAppBar />
-          <div className="pages">{children}</div>
-        </div>
+        <QueryProvider>
+          <div className="container">
+            <SideAppBar />
+            <div className="pages">{children}</div>
+          </div>
+        </QueryProvider>
       </body>
     </html>
   );
