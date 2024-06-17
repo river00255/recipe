@@ -24,7 +24,7 @@ const getRecipe = async ({ page, limit, category }: { page: number; limit: numbe
     : `/api/recipe?page=${page}&limit=${limit}&category=${category}`;
 
   const response = await fetch(url, option);
-  if (!response.ok) throw new Error('Failed to fetch.');
+  if (!response.ok) throw new Error('Failed to fetch Recipe List.');
 
   const json = (await response.json()) as unknown as Res;
   return json.COOKRCP01;
@@ -32,14 +32,15 @@ const getRecipe = async ({ page, limit, category }: { page: number; limit: numbe
 
 const getRecipeByName = async (name: string) => {
   const response = await fetch(`/api/recipe/${name}`);
-  if (!response.ok) throw new Error('Failed to fetch.');
+  if (!response.ok) throw new Error('Failed to fetch Recipe by name.');
   const json = (await response.json()) as unknown as Res;
   return json.COOKRCP01;
 };
 
-const getRandomRecipe = async () => {
-  const response = await fetch(`/api/recipe/recommend`, option);
-  return response.json();
+const getRandomRecipe = async (index: number) => {
+  const response = await fetch(`/api/recipe/recommend?index=${index}`, option);
+  const json = (await response.json()) as unknown as Res;
+  return json.COOKRCP01;
 };
 
-export { searchRecipe, getRecipe, getRecipeByName };
+export { searchRecipe, getRecipe, getRecipeByName, getRandomRecipe };

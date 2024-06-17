@@ -1,5 +1,7 @@
 'use client';
+import RecipeDetail from '@/app/_components/RecipeDetail';
 import { getRecipeByName } from '@/app/_service';
+import { handleManual } from '@/util';
 import { useQuery } from '@tanstack/react-query';
 import { usePathname } from 'next/navigation';
 
@@ -14,7 +16,9 @@ const RecipeByName = () => {
   });
   console.log(data);
 
-  return <div>{data && data.row.length > 0 && <div>{data.row[0].RCP_NM}</div>}</div>;
+  return (
+    <div>{data && data.row.length > 0 && <RecipeDetail recipe={data.row[0]} manual={handleManual(data.row[0])} />}</div>
+  );
 };
 
 export default RecipeByName;

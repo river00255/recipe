@@ -11,7 +11,7 @@ const RecipeList = () => {
 
   const { data } = useQuery({
     queryKey: ['recipe', 'category', category],
-    queryFn: () => getRecipe({ page: 1, limit: 10, ...(category && { category: String(category) }) }),
+    queryFn: () => getRecipe({ page: 1, limit: 20, ...(category && { category: String(category) }) }),
   });
 
   return (

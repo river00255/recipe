@@ -1,4 +1,3 @@
-import { Res } from '@/app/type';
 import { NextResponse } from 'next/server';
 import { baseUrl } from '../route';
 
@@ -9,15 +8,9 @@ const option = {
   },
 };
 
-const getRandomIndex = (min: number, max: number) => {
-  return Math.floor(Math.random() * (max - min) + min);
-};
-
 export const GET = async (request: Request) => {
-  const recipe = (await fetch(`${baseUrl}/1/1`, option)) as unknown as Res;
-  const lastIndex = recipe.COOKRCP01.total_count;
-
-  const index = getRandomIndex(1, lastIndex);
+  const url = new URL(request.url);
+  const index = url.searchParams.get('index');
 
   const response = await fetch(`${baseUrl}/${index}/${index}`, option);
 

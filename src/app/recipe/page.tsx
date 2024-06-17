@@ -9,7 +9,7 @@ const Recipe = async () => {
 
   await queryClient.prefetchQuery({
     queryKey: ['recipe', 'category'],
-    queryFn: () => getRecipe({ page: 1, limit: 10 }),
+    queryFn: () => getRecipe({ page: 1, limit: 20 }),
   });
 
   return (

@@ -6,7 +6,8 @@ const category = [
   { index: 1, name: '밥', path: encodeURIComponent('밥') },
   { index: 2, name: '국', path: encodeURIComponent('국') },
   { index: 3, name: '반찬', path: encodeURIComponent('반찬') },
-  { index: 4, name: '후식', path: encodeURIComponent('후식') },
+  { index: 4, name: '일품', path: encodeURIComponent('일품') },
+  { index: 5, name: '후식', path: encodeURIComponent('후식') },
 ];
 
 const Category = () => {
