@@ -11,7 +11,7 @@ export const GET = async (request: Request) => {
     },
   });
 
-  if (!response.ok) return new NextResponse('Not Found', { status: 400 });
+  if (!response.ok) return new NextResponse('Not Found', { status: 404 });
 
   return response;
 };

@@ -14,7 +14,13 @@ const RecipeDetail = ({
       <div className={styles.detail}>
         <div className={styles.image}>
           <div>
-            <Image src={recipe.ATT_FILE_NO_MAIN} alt={recipe.RCP_NM} width={320} height={320} />
+            <Image
+              src={recipe.ATT_FILE_NO_MAIN}
+              alt={recipe.RCP_NM}
+              width={320}
+              height={320}
+              style={{ width: '320px', height: '320px' }}
+            />
           </div>
           <h4>&lt;&nbsp;{recipe.RCP_NM}&nbsp;&gt;</h4>
         </div>
@@ -24,18 +30,20 @@ const RecipeDetail = ({
           <div>
             <p>{recipe.INFO_ENG}kcal</p>
             <table>
-              <tr>
-                <td>탄수화물(g)</td>
-                <td>단백질(g)</td>
-                <td>지방(g)</td>
-                <td>나트륨(g)</td>
-              </tr>
-              <tr>
-                <td>{recipe.INFO_CAR}</td>
-                <td>{recipe.INFO_PRO}</td>
-                <td>{recipe.INFO_FAT}</td>
-                <td>{recipe.INFO_NA}</td>
-              </tr>
+              <tbody>
+                <tr>
+                  <td>탄수화물(g)</td>
+                  <td>단백질(g)</td>
+                  <td>지방(g)</td>
+                  <td>나트륨(g)</td>
+                </tr>
+                <tr>
+                  <td>{recipe.INFO_CAR}</td>
+                  <td>{recipe.INFO_PRO}</td>
+                  <td>{recipe.INFO_FAT}</td>
+                  <td>{recipe.INFO_NA}</td>
+                </tr>
+              </tbody>
             </table>
           </div>
           {recipe.HASH_TAG !== '' && <i>{`#${recipe.HASH_TAG}`}</i>}
@@ -49,7 +57,9 @@ const RecipeDetail = ({
         <div className={styles.manualStep}>
           {manual.map((item) => (
             <div key={item.index} className={styles.manualItem}>
-              <Image src={item.img} alt={item.index.toString()} width={196} height={130} />
+              <div>
+                <Image src={item.img} alt={item.index.toString()} width={196} height={130} />
+              </div>
               <p>{item.text}</p>
             </div>
           ))}

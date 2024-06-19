@@ -106,4 +106,7 @@
   .container {
     flex-direction: column;
   }
+  .pages {
+    padding: 10px 32px;
+  }
 }

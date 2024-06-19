@@ -8,7 +8,7 @@ import { useCallback, useEffect, useState } from 'react';
 
 const Recommend = () => {
   const [index, setIndex] = useState(0);
-  const savedIndex = getLocalStorage('index')?.number;
+  const savedIndex = getLocalStorage('index');
 
   const { data: recipe } = useQuery({
     queryKey: ['recipe'],
@@ -25,7 +25,7 @@ const Recommend = () => {
   const handleIndex = useCallback(
     (totalCount: number) => {
       const index = getRandomNumber(1, totalCount);
-      setLocalStorage('index', { number: index, createdAt: Date.now() });
+      setLocalStorage('index', { number: index, createdAt: new Date() });
       setIndex(index);
     },
     [recipe]
@@ -35,14 +35,14 @@ const Recommend = () => {
     if (!savedIndex) {
       if (recipe) handleIndex(recipe.total_count);
     } else {
-      if (Date.now() > new Date(savedIndex.createdAt).getTime() + 60 * 60 * 24) {
+      if (Date.now() > new Date(savedIndex.createdAt).getTime() + 1000 * 60 * 60 * 24) {
         localStorage.removeItem('index');
         if (recipe) handleIndex(recipe.total_count);
       }
-      const index = getLocalStorage('index').number;
+      const index = savedIndex.number;
       setIndex(index);
     }
-  }, []);
+  }, [savedIndex]);
 
   return (
     <div>

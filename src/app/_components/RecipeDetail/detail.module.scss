@@ -88,7 +88,12 @@
   }
   .manualItem {
     width: 196px;
-    margin-right: 20px;
+    margin: 0 20px 12px 0;
+    > div {
+      max-width: 196px;
+      min-height: 130px;
+      margin-bottom: 8px;
+    }
   }
   .tip {
     font-size: 13px;

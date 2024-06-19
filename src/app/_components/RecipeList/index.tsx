@@ -4,18 +4,39 @@ import { useQuery } from '@tanstack/react-query';
 import RecipePreview from '../RecipePreview';
 import styles from './list.module.scss';
 import { useSearchParams } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import Pagiantion from '../Pagination';
 
+const pageLimit = 20;
 const RecipeList = () => {
   const searchParams = useSearchParams();
   const category = searchParams.get('cat');
 
+  const [currentPage, setCurrentPage] = useState(1);
+
   const { data } = useQuery({
-    queryKey: ['recipe', 'category', category],
-    queryFn: () => getRecipe({ page: 1, limit: 20, ...(category && { category: String(category) }) }),
+    queryKey: ['recipe', 'category', category, currentPage],
+    queryFn: () => getRecipe({ page: currentPage, limit: pageLimit, ...(category && { category: String(category) }) }),
   });
 
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [category]);
+
   return (
-    <div className={styles.list}>{data && data.row.map((item) => <RecipePreview item={item} key={item.RCP_NM} />)}</div>
+    <>
+      <div className={styles.list}>
+        {data && data.row?.map((item) => <RecipePreview item={item} key={item.RCP_NM} />)}
+      </div>
+      {data && data.total_count > 0 && (
+        <Pagiantion
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+          limit={pageLimit}
+          totalElement={data.total_count}
+        />
+      )}
+    </>
   );
 };
 

@@ -14,7 +14,7 @@ const RecipeByName = () => {
     queryFn: () => getRecipeByName(String(name)),
     enabled: !!name,
   });
-  console.log(data);
+  // console.log(data);
 
   return (
     <div>{data && data.row.length > 0 && <RecipeDetail recipe={data.row[0]} manual={handleManual(data.row[0])} />}</div>

@@ -14,8 +14,24 @@ const option = {
   },
 };
 
-const searchRecipe = async (type: 'RCP_NM' | 'RCP_PARTS_DTLS', text: string) => {
-  return await fetcher('GET', `${baseUrl}/1/10/${type}=${text}`);
+const searchRecipe = async ({
+  type,
+  text,
+  page,
+  limit,
+}: {
+  type: 'RCP_NM' | 'RCP_PARTS_DTLS';
+  text: string;
+  page: number;
+  limit: number;
+}) => {
+  const url = `/api/recipe/search?page=${page}&limit=${limit}&type=${type}&text=${text}`;
+
+  const response = await fetch(url, option);
+  if (!response.ok) throw new Error('Failed to fetch Recipe.');
+
+  const json = (await response.json()) as unknown as Res;
+  return json.COOKRCP01;
 };
 
 const getRecipe = async ({ page, limit, category }: { page: number; limit: number; category?: string }) => {

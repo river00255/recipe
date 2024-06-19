@@ -1,12 +1,16 @@
 'use client';
-import { SyntheticEvent, useRef, useState } from 'react';
+import { SyntheticEvent, useEffect, useRef, useState } from 'react';
 import styles from './searchForm.module.scss';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 const SearchForm = () => {
   const [type, setType] = useState('RCP_NM');
   const inputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
+
+  const searchParams = useSearchParams();
+  const searchText = searchParams.get('q');
+  const searchType = searchParams.get('type');
 
   const onSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
@@ -19,14 +23,18 @@ const SearchForm = () => {
     }
   };
 
+  useEffect(() => {
+    if (searchType) setType(String(searchType));
+  }, [searchType]);
+
   return (
     <form onSubmit={onSubmit} className={styles.form}>
-      <select defaultValue={type} onChange={(e) => setType(e.target.value)}>
+      <select defaultValue={searchType || type} onChange={(e) => setType(e.target.value)}>
         <option value="RCP_NM">메뉴명</option>
         <option value="RCP_PARTS_DTLS">재료명</option>
       </select>
-      <input type="text" ref={inputRef} />
-      <button>search</button>
+      <input type="text" ref={inputRef} defaultValue={searchText ? decodeURIComponent(String(searchText)) : ''} />
+      <button>검 색</button>
     </form>
   );
 };
