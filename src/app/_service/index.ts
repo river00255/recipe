@@ -1,4 +1,3 @@
-import { fetcher } from '@/util/fetcher';
 import { Res } from '../type';
 
 const apiUrl = process.env.NEXT_PUBLIC_API_URL;

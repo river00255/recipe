@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import styles from './appBar.module.scss';
+import AccountNav from '../AccountNav';
 
 const SideAppBar = () => {
   return (
@@ -17,6 +18,7 @@ const SideAppBar = () => {
           </li>
         </ul>
       </nav>
+      <AccountNav />
     </aside>
   );
 };

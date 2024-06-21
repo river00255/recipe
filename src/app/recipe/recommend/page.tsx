@@ -35,7 +35,7 @@ const Recommend = () => {
     if (!savedIndex) {
       if (recipe) handleIndex(recipe.total_count);
     } else {
-      if (Date.now() > new Date(savedIndex.createdAt).getTime() + 1000 * 60 * 60 * 24) {
+      if (Date.now() > new Date(savedIndex.createdAt).getTime() + 1000 * 60 * 60 * 12) {
         localStorage.removeItem('index');
         if (recipe) handleIndex(recipe.total_count);
       }

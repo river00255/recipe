@@ -35,6 +35,8 @@ const Search = () => {
 
   return (
     <div>
+      <h3>{`\' ${decodeURIComponent(String(queryString))} \'`} 검색 결과</h3>
+      <button>←</button>
       <SearchForm />
       <div className={styles.list}>
         {data && data.row?.map((item) => <RecipePreview item={item} key={item.RCP_NM} />)}

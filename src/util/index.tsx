@@ -39,3 +39,15 @@ export const verifyNumber = (value: string, totalPage: number, currentPage: numb
   }
   return currentPage;
 };
+
+export const validateEmail = (value: string) => {
+  const emailRegex = /^\S+@\S+\.\S+$/;
+  if (emailRegex.test(value)) return true;
+  return false;
+};
+
+export const validatePassword = (value: string) => {
+  const passwordRegex = /^(?=.*[a-z])(?=.*[0-9]).{6,20}$/;
+  if (passwordRegex.test(value)) return true;
+  return false;
+};
