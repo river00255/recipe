@@ -1,0 +1,43 @@
+.ranking {
+  display: flex;
+  justify-content: center;
+  h4 {
+    font-size: 17px;
+    color: #525252;
+    margin: 32px 0 20px 0;
+    letter-spacing: 1px;
+  }
+  ul {
+    width: 240px;
+    li {
+      font-size: 18px;
+      font-weight: 200;
+      padding: 8px;
+    }
+  }
+}
+.item {
+  font-size: 18px;
+  font-weight: 200;
+  padding: 8px 16px;
+  margin: 20px 0;
+  width: 320px;
+  border-left: 4px solid #f5f5f5;
+  > a {
+    display: flex;
+    align-items: center;
+  }
+  .image {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 16px;
+    > img {
+      border-radius: 50%;
+    }
+  }
+  &:hover {
+    border-left: 4px solid #d4d4d4;
+  }
+}

@@ -10,10 +10,17 @@ const AccountNav = () => {
     <div className={styles.account}>
       {!user ? (
         <button>
-          <Link href={'/login'}>login</Link>
+          <Link href={'/login'}>로그인</Link>
         </button>
       ) : (
-        <button onClick={() => logout()}>logout</button>
+        <ul>
+          <li>
+            <Link href={'/my'}>마이페이지</Link>
+          </li>
+          <li>
+            <button onClick={() => logout()}>로그아웃</button>
+          </li>
+        </ul>
       )}
     </div>
   );

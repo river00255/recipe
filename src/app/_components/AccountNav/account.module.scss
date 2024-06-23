@@ -2,4 +2,24 @@
   position: absolute;
   left: 20px;
   bottom: 20px;
+  button {
+    font-size: 15px;
+    color: #525252;
+    padding: 5px 16px;
+    border-radius: 4px;
+    box-shadow: 2px 2px 2px #e5e5e5;
+    &:hover {
+      box-shadow: 1px 1px 3px #e5e5e5;
+    }
+  }
+  ul {
+    li {
+      font-size: 15px;
+      color: #525252;
+      &:first-of-type {
+        padding-left: 8px;
+        margin: 16px 0;
+      }
+    }
+  }
 }

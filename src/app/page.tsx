@@ -1,3 +1,4 @@
+import Ranking from './_components/Ranking';
 import SearchForm from './_components/SearchForm';
 import styles from './page.module.scss';
 
@@ -8,6 +9,7 @@ export default function Home() {
       <div className={styles.search}>
         <SearchForm />
       </div>
+      <Ranking />
     </main>
   );
 }

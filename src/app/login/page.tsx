@@ -2,6 +2,7 @@
 import { SyntheticEvent, useRef } from 'react';
 import styles from './login.module.scss';
 import { useAuth } from '../_components/AuthProvider';
+import Link from 'next/link';
 
 const Login = () => {
   const emailRef = useRef<HTMLInputElement>(null);
@@ -29,6 +30,7 @@ const Login = () => {
         <input type="password" id="password" name="password" ref={passwordRef} />
         <button>로그인</button>
       </form>
+      <Link href={'/register'}>가입하기</Link>
     </div>
   );
 };

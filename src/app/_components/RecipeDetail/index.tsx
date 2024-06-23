@@ -1,13 +1,17 @@
 import { Recipe } from '@/app/type';
 import Image from 'next/image';
 import styles from './detail.module.scss';
+import { User } from 'firebase/auth';
+import LikeButton from '../LikeButton';
 
 const RecipeDetail = ({
   recipe,
   manual,
+  user,
 }: {
   recipe: Recipe;
   manual: { index: number; text: string; img: string }[];
+  user: User | null;
 }) => {
   return (
     <div className={styles.container}>
@@ -47,6 +51,7 @@ const RecipeDetail = ({
             </table>
           </div>
           {recipe.HASH_TAG !== '' && <i>{`#${recipe.HASH_TAG}`}</i>}
+          <LikeButton item={recipe} user={user} />
         </div>
       </div>
       <hr />

@@ -51,3 +51,7 @@ export const validatePassword = (value: string) => {
   if (passwordRegex.test(value)) return true;
   return false;
 };
+
+export const sortDesc = (num1: number, num2: number) => {
+  return num2 - num1;
+};

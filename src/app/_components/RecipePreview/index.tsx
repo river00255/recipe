@@ -11,13 +11,17 @@ const RecipePreview = ({ item }: { item: Recipe }) => {
       </div>
       <Link href={`/recipe/${encodeURIComponent(encodeURIComponent(item.RCP_NM))}`}>
         <div className={styles.img}>
-          <Image
-            src={item.ATT_FILE_NO_MAIN}
-            alt={item.RCP_NM}
-            width={160}
-            height={160}
-            style={{ width: '160px', height: '160px' }}
-          />
+          {item.ATT_FILE_NO_MAIN.length < 1 ? (
+            <div style={{ width: '160px', height: '160px', background: '#f5f5f5' }} />
+          ) : (
+            <Image
+              src={item.ATT_FILE_NO_MAIN}
+              alt={item.RCP_NM}
+              width={160}
+              height={160}
+              style={{ width: '160px', height: '160px' }}
+            />
+          )}
         </div>
         <p>{item.RCP_NM}</p>
       </Link>

@@ -29,14 +29,14 @@
   }
 }
 .info {
-  span {
+  > span {
     border: 1px solid #e5e5e5;
     border-left: 8px solid #e5e5e5;
     border-radius: 0 4px 4px 0;
     padding: 8px 24px;
     margin-right: 16px;
   }
-  span:last-of-type {
+  > span:last-of-type {
     border: none;
     border-radius: 0;
     border-bottom: 2px solid #e5e5e5;

@@ -51,6 +51,25 @@ type Manual = {
   [key: string]: string;
 };
 
+export type Likes = {
+  recipe: {
+    id: string;
+    name: string;
+    category: string;
+    thumbnailUrl: string;
+  };
+  like: {
+    userId: string[];
+    count: number;
+  };
+};
+
+export type Searching = {
+  id?: string;
+  text: string;
+  count: string;
+};
+
 const response = {
   RCP_SEQ: '일련번호',
   RCP_NM: '메뉴명',

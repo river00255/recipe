@@ -2,6 +2,8 @@
 import { SyntheticEvent, useEffect, useRef, useState } from 'react';
 import styles from './searchForm.module.scss';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { useMutation } from '@tanstack/react-query';
+import { addSearchString } from '@/app/_service/firestore';
 
 const SearchForm = () => {
   const [type, setType] = useState('RCP_NM');
@@ -12,6 +14,10 @@ const SearchForm = () => {
   const searchText = searchParams.get('q');
   const searchType = searchParams.get('type');
 
+  const { mutate } = useMutation({
+    mutationFn: addSearchString,
+  });
+
   const onSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
     if (inputRef.current && inputRef.current.value.trim().length > 0) {
@@ -19,6 +25,7 @@ const SearchForm = () => {
       const searchParams = new URLSearchParams();
       searchParams.set('type', encodeURIComponent(type));
       searchParams.set('q', encodeURIComponent(text));
+      mutate(text);
       router.push(`/search?${searchParams.toString()}`);
     }
   };

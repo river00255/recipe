@@ -1,0 +1,42 @@
+.myPage {
+  padding: 32px 16px;
+  > span {
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+    border-bottom: 1px solid #d4d4d4;
+    padding: 8px 32px;
+    max-width: 90%;
+    margin: 0 auto;
+  }
+}
+.list {
+  padding: 16px 48px;
+  display: flex;
+  flex-wrap: wrap;
+}
+.item {
+  font-size: 18px;
+  font-weight: 200;
+  padding: 8px 16px;
+  margin: 10px;
+  width: 260px;
+  border-bottom: 4px solid #fff;
+  > a {
+    display: flex;
+    align-items: center;
+  }
+  .image {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 16px;
+    > img {
+      border-radius: 50%;
+    }
+  }
+  &:hover {
+    border-bottom: 4px solid #d4d4d4;
+  }
+}

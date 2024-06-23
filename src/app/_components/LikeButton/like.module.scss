@@ -1,0 +1,17 @@
+.like {
+  button {
+    border: 1px solid #cbd5e1;
+    border-radius: 20px;
+    padding: 8px 32px;
+    span {
+      display: flex;
+      align-items: center;
+    }
+    b {
+      margin-left: 30px;
+      font-size: 15px;
+      font-weight: 400;
+      color: #525252;
+    }
+  }
+}
