@@ -22,4 +22,12 @@
       }
     }
   }
+  @media (max-width: 960px) {
+    left: initial;
+    right: 20px;
+    bottom: 16px;
+    button {
+      font-size: 14px;
+    }
+  }
 }

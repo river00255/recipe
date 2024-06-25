@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
-import { baseUrl } from '../route';
+
+const baseUrl = `${process.env.NEXT_PUBLIC_API_URL}${process.env.NEXT_PUBLIC_API_KEY}/${process.env.NEXT_PUBLIC_API_SERVICE_ID}/json`;
 
 export const GET = async (request: Request) => {
   const url = new URL(request.url);

@@ -21,4 +21,11 @@
       background: #cbd5e1;
     }
   }
+  @media (max-width: 480px) {
+    flex-direction: column;
+    padding: 0 16px;
+    input[type='text'] {
+      margin: 10px 0;
+    }
+  }
 }

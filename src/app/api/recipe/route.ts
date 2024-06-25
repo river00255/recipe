@@ -4,7 +4,7 @@ const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 const apiKey = process.env.NEXT_PUBLIC_API_KEY;
 const serviceId = process.env.NEXT_PUBLIC_API_SERVICE_ID;
 
-export const baseUrl = `${apiUrl}${apiKey}/${serviceId}/json`;
+const baseUrl = `${apiUrl}${apiKey}/${serviceId}/json`;
 
 export const GET = async (request: Request) => {
   const url = new URL(request.url);

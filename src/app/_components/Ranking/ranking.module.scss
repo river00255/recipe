@@ -15,6 +15,9 @@
       padding: 8px;
     }
   }
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
 }
 .item {
   font-size: 18px;
