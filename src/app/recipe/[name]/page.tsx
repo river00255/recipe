@@ -13,7 +13,7 @@ const RecipeByName = () => {
 
   const { user } = useAuth();
 
-  const { data } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ['recipe', 'detail', name],
     queryFn: () => getRecipeByName(String(name)),
     enabled: !!name,
@@ -22,6 +22,7 @@ const RecipeByName = () => {
 
   return (
     <div>
+      {isLoading && <Loading />}
       {data && data.row.length > 0 && (
         <RecipeDetail recipe={data.row[0]} manual={handleManual(data.row[0])} user={user} />
       )}

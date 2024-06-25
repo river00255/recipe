@@ -1,6 +1,19 @@
-import { addDoc, collection, doc, getDoc, getDocs, orderBy, query, setDoc, updateDoc } from 'firebase/firestore';
-import { Likes, Searching } from '../type';
+import {
+  addDoc,
+  collection,
+  deleteDoc,
+  doc,
+  getDoc,
+  getDocs,
+  orderBy,
+  query,
+  setDoc,
+  updateDoc,
+  where,
+} from 'firebase/firestore';
+import { Likes, RecipeReview, Searching } from '../type';
 import { db } from '@/lib/firebase';
+import { deleteImage, getImagePath } from './file';
 
 const getLike = async (recipeId: string) => {
   const likeRef = doc(db, 'like', recipeId);
@@ -91,7 +104,7 @@ const getLikeByUserId = async ({ userId, page }: { userId: string; page: number 
   } else {
     list = list.slice((page - 1) * perPage, page * perPage);
   }
-  return { likes: list, totalElements, totalPages };
+  return { data: list, totalElements, totalPages };
 };
 
 const getSearchString = async () => {
@@ -137,4 +150,94 @@ const getTopRatedSearching = async () => {
   return list.slice(0, 5);
 };
 
-export { getLike, like, dislike, getTopRatedLike, getLikeByUserId, addSearchString, getTopRatedSearching };
+const addReview = async (review: RecipeReview) => {
+  try {
+    const docRef = await addDoc(collection(db, 'review'), review);
+    console.log('Document written with ID: ', docRef.id);
+  } catch (e) {
+    console.error('Error adding document: ', e);
+  }
+};
+
+const getReview = async ({ page }: { page: number }) => {
+  const perPage = 20;
+  let list: RecipeReview[] = [];
+  const reviewRef = collection(db, 'review');
+  const q = query(reviewRef, orderBy('createdAt', 'desc'));
+  const docSnapshot = await getDocs(q);
+  docSnapshot.forEach((doc) =>
+    list.push({ ...(doc.data() as RecipeReview), id: doc.id, createdAt: doc.data().createdAt.toDate() })
+  );
+  const totalElements = list.length;
+  const totalPages = Math.ceil(totalElements / perPage);
+  if (page <= 1) {
+    list = list.slice(0, page * perPage);
+  } else {
+    list = list.slice((page - 1) * perPage, page * perPage);
+  }
+  return { data: list, totalElements, totalPages };
+};
+
+const getReviewByUser = async ({ userId, page }: { userId: string; page: number }) => {
+  const perPage = 20;
+  let list: RecipeReview[] = [];
+  const reviewRef = collection(db, 'review');
+  const q = query(reviewRef, where('userId', '==', userId));
+  const docSnapshot = await getDocs(q);
+  docSnapshot.forEach((doc) =>
+    list.push({ ...(doc.data() as RecipeReview), id: doc.id, createdAt: doc.data().createdAt.toDate() })
+  );
+  list.sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
+  const totalElements = list.length;
+  const totalPages = Math.ceil(totalElements / perPage);
+  if (page <= 1) {
+    list = list.slice(0, page * perPage);
+  } else {
+    list = list.slice((page - 1) * perPage, page * perPage);
+  }
+  return { data: list, totalElements, totalPages };
+};
+
+const updateReview = async ({ id, text, url, userId }: { id: string; text: string; url: string; userId: string }) => {
+  const reviewRef = doc(db, 'review', id);
+  const docSnapshot = await getDoc(reviewRef);
+  if (docSnapshot.exists()) {
+    const prev = { ...docSnapshot.data(), id } as RecipeReview;
+    const date = new Date();
+    if (prev.userId !== userId) return;
+    await updateDoc(reviewRef, {
+      text,
+      url,
+      updatedAt: date,
+    });
+  } else {
+    console.log('No such comment!');
+  }
+};
+
+const deleteReview = async ({ id, userId }: { id: string; userId: string }) => {
+  const reviewRef = doc(db, 'review', id);
+  const docSnapshot = await getDoc(reviewRef);
+  if (docSnapshot.exists()) {
+    const review = { ...docSnapshot.data(), id } as RecipeReview;
+    const url = docSnapshot.data().url;
+    if (review.userId !== userId) return;
+    await deleteDoc(reviewRef);
+    if (url.length > 0) deleteImage({ path: getImagePath(url), userId });
+  }
+};
+
+export {
+  getLike,
+  like,
+  dislike,
+  getTopRatedLike,
+  getLikeByUserId,
+  addSearchString,
+  getTopRatedSearching,
+  addReview,
+  getReview,
+  getReviewByUser,
+  updateReview,
+  deleteReview,
+};

@@ -70,6 +70,15 @@ export type Searching = {
   count: string;
 };
 
+export type RecipeReview = {
+  id?: string;
+  text: string;
+  url: string;
+  userId: string;
+  createdAt: Date;
+  updatedAt?: Date;
+};
+
 const response = {
   RCP_SEQ: '일련번호',
   RCP_NM: '메뉴명',

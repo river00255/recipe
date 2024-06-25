@@ -26,6 +26,7 @@
 }
 .loading {
   position: relative;
+  padding: 40px;
   width: 110px;
   display: flex;
   align-items: center;

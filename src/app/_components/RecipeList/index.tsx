@@ -19,7 +19,7 @@ const RecipeList = () => {
     queryKey: ['recipe', 'category', category, currentPage],
     queryFn: () => getRecipe({ page: currentPage, limit: pageLimit, ...(category && { category: String(category) }) }),
   });
-  console.log(data);
+  // console.log(data);
 
   useEffect(() => {
     setCurrentPage(1);

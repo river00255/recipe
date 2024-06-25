@@ -16,6 +16,9 @@ const SideAppBar = () => {
           <li>
             <Link href="/recipe">종류별 보기</Link>
           </li>
+          <li>
+            <Link href="/review">요리 후기</Link>
+          </li>
         </ul>
       </nav>
       <AccountNav />
