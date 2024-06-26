@@ -29,7 +29,6 @@ const Search = () => {
       }),
     enabled: !!type && !!queryString,
   });
-  // console.log(data);
 
   useEffect(() => {
     setCurrentPage(1);
@@ -56,6 +55,7 @@ const Search = () => {
       </div>
       <SearchForm />
       <div className={styles.list}>
+        {data && data.total_count < 1 && <div className={styles.message}>검색 결과가 없습니다.</div>}
         {data && data.row?.map((item, i) => <RecipePreview item={item} key={`${item.RCP_NM}_${i}`} />)}
       </div>
       {data && data.total_count > 0 && (

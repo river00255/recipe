@@ -3,6 +3,7 @@ import { auth } from '@/lib/firebase';
 import { User, onAuthStateChanged, signInWithEmailAndPassword, signOut } from 'firebase/auth';
 import { useRouter } from 'next/navigation';
 import { ReactNode, createContext, useContext, useEffect, useState } from 'react';
+import { useSnackbar } from '../SnackbarProvider';
 
 type AuthState = {
   user: User | null;
@@ -16,14 +17,16 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [currentUser, setCurrentUser] = useState<User | null>(auth.currentUser);
 
   const router = useRouter();
+  const { show } = useSnackbar();
 
   const login = (email: string, password: string) => {
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         setCurrentUser(userCredential.user);
         router.push('/');
+        show('로그인.');
       })
-      .catch((error) => error);
+      .catch((error) => show(error.message));
   };
 
   const logout = () => {
@@ -32,7 +35,7 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
         setCurrentUser(null);
         router.replace('/');
       })
-      .catch((error) => alert(error.message));
+      .catch((error) => show(error.message));
   };
 
   useEffect(() => {

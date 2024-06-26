@@ -6,8 +6,10 @@ import Link from 'next/link';
 const RecipePreview = ({ item }: { item: Recipe }) => {
   return (
     <div className={styles.preview}>
-      <div className={styles.category} onClick={() => console.log(item.RCP_PAT2)}>
-        {item.RCP_PAT2}
+      <div className={styles.category}>
+        <Link href={`/recipe/?cat=${encodeURIComponent(encodeURIComponent(item.RCP_PAT2.split('&')[0]))}`}>
+          {item.RCP_PAT2}
+        </Link>
       </div>
       <Link href={`/recipe/${encodeURIComponent(encodeURIComponent(item.RCP_NM))}`}>
         <div className={styles.img}>

@@ -18,7 +18,6 @@ const RecipeByName = () => {
     queryFn: () => getRecipeByName(String(name)),
     enabled: !!name,
   });
-  // console.log(data);
 
   return (
     <div>

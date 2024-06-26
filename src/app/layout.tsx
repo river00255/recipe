@@ -4,7 +4,8 @@ import './reset.css';
 import './globals.css';
 import SideAppBar from './_components/SideAppBar';
 import QueryProvider from '@/lib/QueryProvider';
-import AuthProvider from './_components/AuthProvider';
+import Head from 'next/head';
+import SnackbarProvider from './_components/SnackbarProvider';
 
 const pretendard = localFont({
   src: './fonts/PretendardVariable.woff2',
@@ -22,15 +23,18 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={pretendard.className}>
+      <Head>
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+      </Head>
       <body>
-        <AuthProvider>
+        <SnackbarProvider>
           <QueryProvider>
             <div className="container">
               <SideAppBar />
               <div className="pages">{children}</div>
             </div>
           </QueryProvider>
-        </AuthProvider>
+        </SnackbarProvider>
       </body>
     </html>
   );

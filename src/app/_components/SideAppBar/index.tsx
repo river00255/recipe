@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import styles from './appBar.module.scss';
 import AccountNav from '../AccountNav';
+import AuthProvider from '../AuthProvider';
 
 const SideAppBar = () => {
   return (
@@ -21,7 +22,9 @@ const SideAppBar = () => {
           </li>
         </ul>
       </nav>
-      <AccountNav />
+      <AuthProvider>
+        <AccountNav />
+      </AuthProvider>
     </aside>
   );
 };

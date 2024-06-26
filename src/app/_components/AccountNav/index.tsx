@@ -4,13 +4,13 @@ import { useAuth } from '../AuthProvider';
 import styles from './account.module.scss';
 
 const AccountNav = () => {
-  const { user, login, logout } = useAuth();
+  const { user, logout } = useAuth();
 
   return (
     <div className={styles.account}>
       {!user ? (
         <button>
-          <Link href={'/login'}>로그인</Link>
+          <Link href={'/account/login'}>로그인</Link>
         </button>
       ) : (
         <ul>

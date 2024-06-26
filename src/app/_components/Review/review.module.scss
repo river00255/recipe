@@ -29,6 +29,12 @@
       border: 1px solid #fff;
     }
   }
+  @media (max-width: 480px) {
+    flex-direction: column;
+    textarea {
+      width: 100%;
+    }
+  }
 }
 .image {
   width: 100px;

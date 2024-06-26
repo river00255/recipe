@@ -6,6 +6,7 @@ import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '@/lib/firebase';
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import { useSnackbar } from '@/app/_components/SnackbarProvider';
 
 const signup = async (
   prevState: { email: boolean; password: boolean; passwordConfirm: boolean; username: boolean } | undefined,
@@ -33,8 +34,16 @@ const Register = () => {
 
   const [state, formAction] = useFormState(signup, undefined);
 
+  const { show } = useSnackbar();
+
   useEffect(() => {
-    if (state && state.user) router.replace('/');
+    if (state) {
+      if (state.code) show(state.code);
+      if (state.user) {
+        show('가입 완료.');
+        router.replace('/');
+      }
+    }
   }, [state]);
 
   return (

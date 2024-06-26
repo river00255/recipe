@@ -12,7 +12,6 @@ const Ranking = () => {
     staleTime: 1000 * 60 * 30,
     gcTime: 1000 * 60 * 30,
   });
-  // console.log(data);
 
   const { data: searchData } = useQuery({
     queryKey: ['search', 'rank'],
@@ -20,7 +19,6 @@ const Ranking = () => {
     staleTime: 1000 * 60 * 30,
     gcTime: 1000 * 60 * 30,
   });
-  // console.log(searchData);
 
   return (
     <div className={styles.ranking}>

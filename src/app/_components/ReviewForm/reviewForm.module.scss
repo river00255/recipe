@@ -35,11 +35,15 @@
     border: 1px solid #d4d4d4;
     border-radius: 4px;
     padding: 5px;
-    height: 96px;
+    // height: 96px;
     margin: 0 32px 0 20px;
     resize: none;
     &:focus {
       outline: none;
+    }
+    &::placeholder {
+      color: #e5e5e5;
+      font-size: 14px;
     }
   }
   button {
@@ -48,6 +52,16 @@
     border-radius: 4px;
     &:hover {
       background: #cbd5e1;
+    }
+  }
+  @media (max-width: 480px) {
+    flex-direction: column;
+    textarea {
+      margin: 10px 0;
+      width: 100%;
+    }
+    button {
+      padding: 5px 40px;
     }
   }
 }

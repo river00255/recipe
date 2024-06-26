@@ -14,11 +14,12 @@ const ReviewList = () => {
     queryKey: ['review', currentPage],
     queryFn: () => getReview({ page: currentPage }),
   });
-  console.log(data);
 
   return (
     <div className={styles.reviewList}>
-      <div>{data && data.data.map((item) => <Review key={item.id} review={{ ...item, id: String(item.id) }} />)}</div>
+      <div className={styles.list}>
+        {data && data.data.map((item) => <Review key={item.id} review={{ ...item, id: String(item.id) }} />)}
+      </div>
       {data && data.totalElements > 0 && (
         <Pagiantion
           currentPage={currentPage}

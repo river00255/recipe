@@ -12,7 +12,6 @@ const LikeButton = ({ item, user }: { item: Recipe; user: User | null }) => {
     queryKey: ['like', item.RCP_SEQ],
     queryFn: () => getLike(item.RCP_SEQ),
   });
-  // console.log(data);
 
   const { mutate: likeRecipe } = useMutation({
     mutationFn: like,

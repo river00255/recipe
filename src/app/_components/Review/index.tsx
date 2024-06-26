@@ -75,7 +75,13 @@ const Review = ({ review }: { review: RecipeReview & { id: string } }) => {
 
   return (
     <div className={!isEdit ? `${styles.review}` : `${styles.review} ${styles.active}`}>
-      <textarea defaultValue={review.text || ''} ref={textRef} readOnly={!isEdit ? true : false} />
+      <textarea
+        defaultValue={review.text || ''}
+        ref={textRef}
+        readOnly={!isEdit ? true : false}
+        maxLength={300}
+        rows={7}
+      />
       <div className={styles.image}>
         {image.url.length > 0 && (
           <>

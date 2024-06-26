@@ -135,7 +135,7 @@ const addSearchString = async (text: string) => {
       text,
       count: 1,
     });
-    console.log('Document written with ID: ', docRef.id);
+    return docRef.id;
   } else {
     updateSearchString(String(prev.id));
   }
@@ -153,7 +153,7 @@ const getTopRatedSearching = async () => {
 const addReview = async (review: RecipeReview) => {
   try {
     const docRef = await addDoc(collection(db, 'review'), review);
-    console.log('Document written with ID: ', docRef.id);
+    return docRef.id;
   } catch (e) {
     console.error('Error adding document: ', e);
   }
@@ -178,7 +178,7 @@ const getReview = async ({ page }: { page: number }) => {
   return { data: list, totalElements, totalPages };
 };
 
-const getReviewByUser = async ({ userId, page }: { userId: string; page: number }) => {
+const getReviewByUserId = async ({ userId, page }: { userId: string; page: number }) => {
   const perPage = 20;
   let list: RecipeReview[] = [];
   const reviewRef = collection(db, 'review');
@@ -211,7 +211,7 @@ const updateReview = async ({ id, text, url, userId }: { id: string; text: strin
       updatedAt: date,
     });
   } else {
-    console.log('No such comment!');
+    console.log('No such review!');
   }
 };
 
@@ -237,7 +237,7 @@ export {
   getTopRatedSearching,
   addReview,
   getReview,
-  getReviewByUser,
+  getReviewByUserId,
   updateReview,
   deleteReview,
 };

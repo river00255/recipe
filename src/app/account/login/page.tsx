@@ -1,8 +1,8 @@
 'use client';
 import { SyntheticEvent, useRef } from 'react';
 import styles from './login.module.scss';
-import { useAuth } from '../_components/AuthProvider';
 import Link from 'next/link';
+import { useAuth } from '@/app/_components/AuthProvider';
 
 const Login = () => {
   const emailRef = useRef<HTMLInputElement>(null);
@@ -30,7 +30,7 @@ const Login = () => {
         <input type="password" id="password" name="password" ref={passwordRef} />
         <button>로그인</button>
       </form>
-      <Link href={'/register'}>가입하기</Link>
+      <Link href={'/account/register'}>가입하기</Link>
     </div>
   );
 };

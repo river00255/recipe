@@ -6,9 +6,12 @@ import { saveImage } from '@/app/_service/file';
 import { useAuth } from '../AuthProvider';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { addReview } from '@/app/_service/firestore';
+import { useSnackbar } from '../SnackbarProvider';
 
 const ReviewForm = () => {
   const { user } = useAuth();
+
+  const { show } = useSnackbar();
 
   const textRef = useRef<HTMLTextAreaElement>(null);
   const [image, setImage] = useState<{ url: string; name: string; file: File | null }>({
@@ -28,9 +31,13 @@ const ReviewForm = () => {
   });
 
   const handleInputFile = (e: ChangeEvent<HTMLInputElement>) => {
-    if (image.url) URL.revokeObjectURL(image.url);
+    if (image.url.length > 0) URL.revokeObjectURL(image.url);
     if (e.target.files) {
       const file = e.target.files[0];
+      if (file.size > 5 * 1024 * 1024) {
+        show('5mb 이하의 파일을 첨부해주세요.');
+        return;
+      }
       const url = URL.createObjectURL(file);
       setImage({ url, name: `${Date.now()}_${file.name}`, file });
     }
@@ -95,7 +102,7 @@ const ReviewForm = () => {
         </div>
         <input type="file" accept="image/*" onChange={(e) => handleInputFile(e)} />
       </label>
-      <textarea ref={textRef} />
+      <textarea maxLength={300} ref={textRef} placeholder="300자 이내" rows={4} />
       <button onClick={() => writeReview(user.uid)}>
         <svg width="24px" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path

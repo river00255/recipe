@@ -6,50 +6,54 @@ import Loading from '@/app/loading';
 import { getRandomNumber, handleManual } from '@/util';
 import { getLocalStorage, setLocalStorage } from '@/util/persist';
 import { useQuery } from '@tanstack/react-query';
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 const Recommend = () => {
-  const [index, setIndex] = useState(0);
-  const savedIndex = getLocalStorage('index');
-
   const { user } = useAuth();
 
-  const { data: recipe, isLoading } = useQuery({
-    queryKey: ['recipe'],
+  const savedIndex: number | null = getLocalStorage('index');
+  const createdAt: number | null = getLocalStorage('indexCreatedAt');
+
+  const checkCreateTime = (createdAt: number | null) => {
+    if (!createdAt) return false;
+    if (Date.now() < createdAt + 1000 * 60 * 60 * 24) return true;
+    localStorage.removeItem('index');
+    localStorage.removeItem('indexCreatedAt');
+    return false;
+  };
+
+  const getIndex = (totalCount: number) => {
+    const index = getRandomNumber(1, totalCount);
+    setLocalStorage('index', index);
+    setLocalStorage('indexCreatedAt', Date.now());
+    return index;
+  };
+
+  const { data: recipe1 } = useQuery({
+    queryKey: ['recipe', 'recommend'],
     queryFn: () => getRecipe({ page: 1, limit: 1 }),
-    gcTime: 1000 * 60 * 60 * 1,
+    staleTime: 1000 * 60 * 60 * 24,
+    gcTime: 1000 * 60 * 60 * 24,
+    refetchOnMount: false,
+    refetchOnReconnect: false,
   });
 
-  const { data } = useQuery({
+  const index = useMemo(() => {
+    if (!savedIndex) {
+      return recipe1 ? getIndex(recipe1.total_count) : 0;
+    } else {
+      if (!checkCreateTime(createdAt)) return recipe1 ? getIndex(recipe1.total_count) : savedIndex;
+      return savedIndex;
+    }
+  }, [savedIndex, createdAt, recipe1, checkCreateTime, getIndex]);
+
+  const { data, isLoading } = useQuery({
     queryKey: ['recipe', 'recommend', index],
     queryFn: () => getRandomRecipe(index),
     enabled: index > 0,
-    staleTime: 1000 * 60 * 60 * 1,
-    gcTime: 1000 * 60 * 60 * 1,
+    staleTime: 1000 * 60 * 60 * 24,
+    gcTime: 1000 * 60 * 60 * 24,
   });
-
-  const handleIndex = useCallback(
-    (totalCount: number) => {
-      const index = getRandomNumber(1, totalCount);
-      setLocalStorage('index', { number: index, createdAt: new Date() });
-      setIndex(index);
-    },
-    [recipe]
-  );
-
-  useEffect(() => {
-    if (!savedIndex) {
-      if (recipe) handleIndex(recipe.total_count);
-    } else {
-      if (Date.now() > new Date(savedIndex.createdAt).getTime() + 1000 * 60 * 60 * 1) {
-        localStorage.removeItem('index');
-        if (recipe) handleIndex(recipe.total_count);
-      } else {
-        const index = savedIndex.number;
-        setIndex(index);
-      }
-    }
-  }, [savedIndex]);
 
   return (
     <div>

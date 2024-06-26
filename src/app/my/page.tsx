@@ -20,7 +20,6 @@ const MyPage = () => {
     queryFn: () => getLikeByUserId({ userId: userId, page: currentPage }),
     enabled: !!user,
   });
-  // console.log(data);
 
   if (!user) return null;
   return (
@@ -44,6 +43,7 @@ const MyPage = () => {
         </Link>
       </span>
       <div className={styles.list}>
+        {data && data.totalElements < 1 && <div className={styles.message}>좋아요를 표시한 레시피가 없습니다.</div>}
         {data &&
           data.data?.map((item) => (
             <div key={item.recipe.id} className={styles.item}>
