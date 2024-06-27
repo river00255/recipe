@@ -1,0 +1,27 @@
+.nav {
+  li {
+    color: #525252;
+    margin-bottom: 24px;
+  }
+  @media (max-width: 960px) {
+    .active {
+      &::after {
+        display: none;
+      }
+    }
+  }
+}
+.active {
+  color: #404040;
+  font-weight: 600;
+  &::after {
+    display: inline-block;
+    content: '';
+    width: 8px;
+    height: 8px;
+    margin: 0 0 1px 12px;
+    border-top: 2px solid #525252;
+    border-left: 2px solid #525252;
+    transform: rotate(135deg);
+  }
+}
