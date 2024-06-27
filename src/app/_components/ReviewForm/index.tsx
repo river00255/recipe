@@ -44,20 +44,23 @@ const ReviewForm = () => {
   };
 
   const writeReview = async (userId: string) => {
-    if (!image.file && !textRef.current) return;
-    if (image.file) {
-      const url = await saveImage({ image: { file: image.file, name: image.name }, userId });
-      const text = textRef.current ? textRef.current.value.trim() : '';
-      if (url) write({ url, text, userId, createdAt: new Date() });
-      URL.revokeObjectURL(image.url);
-      setImage({ url: '', name: '', file: null });
-      if (textRef.current) textRef.current.value = '';
+    if (!image.file) {
+      show('이미지를 추가하세요.');
       return;
     }
-    if (!textRef.current || textRef.current.value.trim().length < 1) return;
-    const text = textRef.current.value.trim();
-    write({ url: '', text, userId, createdAt: new Date() });
-    textRef.current.value = '';
+    const url = await saveImage({ image: { file: image.file, name: image.name }, userId });
+    const text = textRef.current ? textRef.current.value.trim() : '';
+    if (url) write({ url, text, userId, createdAt: new Date() });
+    URL.revokeObjectURL(image.url);
+    setImage({ url: '', name: '', file: null });
+    if (textRef.current) textRef.current.value = '';
+    // if (image.file) {
+    //   return;
+    // }
+    // if (!textRef.current || textRef.current.value.trim().length < 1) return;
+    // const text = textRef.current.value.trim();
+    // write({ url: '', text, userId, createdAt: new Date() });
+    // textRef.current.value = '';
   };
 
   if (!user) return null;

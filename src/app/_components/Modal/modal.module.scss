@@ -1,0 +1,19 @@
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.inner {
+  background: #fff;
+  border-radius: 4px;
+  padding: 40px;
+  max-width: calc(100dvw - 80px);
+  max-height: calc(100dvh - 80px);
+  box-shadow: 2px 2px 3px #e5e7eb;
+}

@@ -48,6 +48,7 @@ const usePagiantion = ({
     moveToLast,
     totalPage,
     inputValue,
+    setInputValue,
   };
 };
 
