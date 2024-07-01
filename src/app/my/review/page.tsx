@@ -6,6 +6,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
 import styles from './myReview.module.scss';
 import Pagiantion from '@/app/_components/Pagination';
+import { ReviewKeys } from '@/app/_service/keys';
 
 const pageLimit = 20;
 const MyReview = () => {
@@ -15,7 +16,7 @@ const MyReview = () => {
   const [currentPage, setCurrentPage] = useState(1);
 
   const { data } = useQuery({
-    queryKey: ['review', userId],
+    queryKey: ReviewKeys.filteredList(userId, currentPage),
     queryFn: () => getReviewByUserId({ userId, page: currentPage }),
   });
 

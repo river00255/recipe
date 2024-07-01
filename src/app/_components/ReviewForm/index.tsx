@@ -7,6 +7,7 @@ import { useAuth } from '../AuthProvider';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { addReview } from '@/app/_service/firestore';
 import { useSnackbar } from '../SnackbarProvider';
+import { ReviewKeys } from '@/app/_service/keys';
 
 const ReviewForm = () => {
   const { user } = useAuth();
@@ -26,7 +27,7 @@ const ReviewForm = () => {
     mutationFn: addReview,
     onSuccess: () =>
       queryClient.invalidateQueries({
-        queryKey: ['review'],
+        queryKey: ReviewKeys.lists(),
       }),
   });
 

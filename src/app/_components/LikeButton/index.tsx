@@ -4,23 +4,24 @@ import { Recipe } from '@/app/type';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { User } from 'firebase/auth';
 import styles from './like.module.scss';
+import { LikeKeys } from '@/app/_service/keys';
 
 const LikeButton = ({ item, user }: { item: Recipe; user: User | null }) => {
   const queryClient = useQueryClient();
 
   const { data } = useQuery({
-    queryKey: ['like', item.RCP_SEQ],
+    queryKey: LikeKeys.item(item.RCP_SEQ),
     queryFn: () => getLike(item.RCP_SEQ),
   });
 
   const { mutate: likeRecipe } = useMutation({
     mutationFn: like,
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['like', item.RCP_SEQ] }),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: LikeKeys.item(item.RCP_SEQ) }),
   });
 
   const { mutate: dislikeRecipe } = useMutation({
     mutationFn: dislike,
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['like', item.RCP_SEQ] }),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: LikeKeys.item(item.RCP_SEQ) }),
   });
 
   const toggleLike = ({ item, userId }: { item: Recipe; userId: string }) => {

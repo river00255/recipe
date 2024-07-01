@@ -7,6 +7,7 @@ import RecipePreview from '../_components/RecipePreview';
 import styles from './search.module.scss';
 import { useEffect, useState } from 'react';
 import Pagiantion from '../_components/Pagination';
+import { RecipeKeys } from '../_service/keys';
 
 const pageLimit = 20;
 const Search = () => {
@@ -19,7 +20,7 @@ const Search = () => {
   const [currentPage, setCurrentPage] = useState(1);
 
   const { data } = useQuery({
-    queryKey: ['recipe', 'search', type, queryString, currentPage],
+    queryKey: RecipeKeys.search(String(type) as 'RCP_NM' | 'RCP_PARTS_DTLS', String(queryString), currentPage),
     queryFn: () =>
       searchRecipe({
         type: String(type) as 'RCP_NM' | 'RCP_PARTS_DTLS',

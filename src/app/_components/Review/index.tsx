@@ -12,6 +12,7 @@ import useModal from '@/app/_hooks/useModal';
 import Modal from '../Modal';
 import ModalImage from '../Modal/ModalImage';
 import { useSnackbar } from '../SnackbarProvider';
+import { ReviewKeys } from '@/app/_service/keys';
 
 const Review = ({ review }: { review: RecipeReview & { id: string } }) => {
   const { user } = useAuth();
@@ -33,12 +34,12 @@ const Review = ({ review }: { review: RecipeReview & { id: string } }) => {
 
   const { mutate: edit } = useMutation({
     mutationFn: updateReview,
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['review'] }),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ReviewKeys.lists() }),
   });
 
   const { mutate: delReview } = useMutation({
     mutationFn: deleteReview,
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['review'] }),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ReviewKeys.lists() }),
   });
 
   const handleInputFile = (e: ChangeEvent<HTMLInputElement>) => {

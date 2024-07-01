@@ -2,12 +2,13 @@ import { HydrationBoundary, QueryClient, dehydrate } from '@tanstack/react-query
 import ReviewForm from '../_components/ReviewForm';
 import { getReview } from '../_service/firestore';
 import ReviewList from '../_components/ReviewList';
+import { ReviewKeys } from '../_service/keys';
 
 const Review = async () => {
   const queryClient = new QueryClient();
 
   await queryClient.prefetchQuery({
-    queryKey: ['review'],
+    queryKey: ReviewKeys.all,
     queryFn: () => getReview({ page: 1 }),
   });
 

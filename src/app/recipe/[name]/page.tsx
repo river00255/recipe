@@ -2,6 +2,7 @@
 import { useAuth } from '@/app/_components/AuthProvider';
 import RecipeDetail from '@/app/_components/RecipeDetail';
 import { getRecipeByName } from '@/app/_service';
+import { RecipeKeys } from '@/app/_service/keys';
 import Loading from '@/app/loading';
 import { handleManual } from '@/util';
 import { useQuery } from '@tanstack/react-query';
@@ -14,7 +15,7 @@ const RecipeByName = () => {
   const { user } = useAuth();
 
   const { data, isLoading } = useQuery({
-    queryKey: ['recipe', 'detail', name],
+    queryKey: RecipeKeys.detail(name),
     queryFn: () => getRecipeByName(String(name)),
     enabled: !!name,
   });

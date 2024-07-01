@@ -5,13 +5,14 @@ import { useState } from 'react';
 import styles from './reviewList.module.scss';
 import Review from '../Review';
 import Pagiantion from '../Pagination';
+import { ReviewKeys } from '@/app/_service/keys';
 
 const pageLimit = 20;
 const ReviewList = () => {
   const [currentPage, setCurrentPage] = useState(1);
 
   const { data } = useQuery({
-    queryKey: ['review', currentPage],
+    queryKey: ReviewKeys.list(currentPage),
     queryFn: () => getReview({ page: currentPage }),
   });
 

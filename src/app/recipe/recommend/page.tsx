@@ -2,6 +2,7 @@
 import { useAuth } from '@/app/_components/AuthProvider';
 import RecipeDetail from '@/app/_components/RecipeDetail';
 import { getRandomRecipe, getRecipe } from '@/app/_service';
+import { RecipeKeys } from '@/app/_service/keys';
 import Loading from '@/app/loading';
 import { getRandomNumber, handleManual } from '@/util';
 import { getLocalStorage, setLocalStorage } from '@/util/persist';
@@ -30,7 +31,7 @@ const Recommend = () => {
   };
 
   const { data: recipe1 } = useQuery({
-    queryKey: ['recipe', 'recommend'],
+    queryKey: RecipeKeys.recommend(),
     queryFn: () => getRecipe({ page: 1, limit: 1 }),
     staleTime: 1000 * 60 * 60 * 24,
     gcTime: 1000 * 60 * 60 * 24,
@@ -48,7 +49,7 @@ const Recommend = () => {
   }, [savedIndex, createdAt, recipe1, checkCreateTime, getIndex]);
 
   const { data, isLoading } = useQuery({
-    queryKey: ['recipe', 'recommend', index],
+    queryKey: RecipeKeys.recommend(index),
     queryFn: () => getRandomRecipe(index),
     enabled: index > 0,
     staleTime: 1000 * 60 * 60 * 24,

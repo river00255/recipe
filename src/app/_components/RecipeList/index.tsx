@@ -8,6 +8,7 @@ import { useEffect, useRef, useState } from 'react';
 import Pagiantion from '../Pagination';
 import Loading from '@/app/loading';
 import usePageMarker from '@/app/_hooks/usePageMarker';
+import { RecipeKeys } from '@/app/_service/keys';
 
 const pageLimit = 20;
 const RecipeList = () => {
@@ -21,7 +22,7 @@ const RecipeList = () => {
   const { markedPage } = usePageMarker();
 
   const { data, isLoading } = useQuery({
-    queryKey: ['recipe', 'category', category, currentPage],
+    queryKey: RecipeKeys.list(category, currentPage),
     queryFn: () => getRecipe({ page: currentPage, limit: pageLimit, ...(category && { category: String(category) }) }),
   });
 

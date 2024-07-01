@@ -5,12 +5,13 @@ import RecipeList from '../_components/RecipeList';
 import Category from '../_components/Category';
 import { Suspense } from 'react';
 import Loading from '../loading';
+import { RecipeKeys } from '../_service/keys';
 
 const Recipe = async () => {
   const queryClient = new QueryClient();
 
   await queryClient.prefetchQuery({
-    queryKey: ['recipe', 'category'],
+    queryKey: RecipeKeys.lists(),
     queryFn: () => getRecipe({ page: 1, limit: 20 }),
   });
 

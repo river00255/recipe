@@ -4,17 +4,18 @@ import { useQuery } from '@tanstack/react-query';
 import Image from 'next/image';
 import styles from './ranking.module.scss';
 import Link from 'next/link';
+import { LikeKeys, RecipeKeys } from '@/app/_service/keys';
 
 const Ranking = () => {
   const { data } = useQuery({
-    queryKey: ['recipe', 'like', 'rank'],
+    queryKey: LikeKeys.ranking,
     queryFn: () => getTopRatedLike(),
     staleTime: 1000 * 60 * 30,
     gcTime: 1000 * 60 * 30,
   });
 
   const { data: searchData } = useQuery({
-    queryKey: ['search', 'rank'],
+    queryKey: RecipeKeys.ranking,
     queryFn: () => getTopRatedSearching(),
     staleTime: 1000 * 60 * 30,
     gcTime: 1000 * 60 * 30,

@@ -7,6 +7,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import Pagiantion from '../_components/Pagination';
+import { LikeKeys } from '../_service/keys';
 
 const pageLimit = 10;
 const MyPage = () => {
@@ -16,7 +17,7 @@ const MyPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
 
   const { data } = useQuery({
-    queryKey: ['recipe', 'like', userId, currentPage],
+    queryKey: LikeKeys.filteredList(userId, currentPage),
     queryFn: () => getLikeByUserId({ userId: userId, page: currentPage }),
     enabled: !!user,
   });
