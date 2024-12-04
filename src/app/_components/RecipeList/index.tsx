@@ -7,7 +7,6 @@ import { useSearchParams } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 import Pagiantion from '../Pagination';
 import Loading from '@/app/loading';
-import usePageMarker from '@/app/_hooks/usePageMarker';
 import { RecipeKeys } from '@/app/_service/keys';
 
 const pageLimit = 20;
@@ -19,20 +18,10 @@ const RecipeList = () => {
 
   const [currentPage, setCurrentPage] = useState(1);
 
-  const { markedPage } = usePageMarker();
-
   const { data, isLoading } = useQuery({
     queryKey: RecipeKeys.list(category, currentPage),
     queryFn: () => getRecipe({ page: currentPage, limit: pageLimit, ...(category && { category: String(category) }) }),
   });
-
-  useEffect(() => {
-    if (markedPage) {
-      markedPage !== currentPage && setCurrentPage(markedPage);
-    } else {
-      setCurrentPage(1);
-    }
-  }, [markedPage]);
 
   useEffect(() => {
     currentPage > 1 && listRef.current && listRef.current.scrollIntoView({ block: 'start', behavior: 'smooth' });

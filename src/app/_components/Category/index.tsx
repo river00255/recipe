@@ -1,7 +1,6 @@
 'use client';
 import { useRouter, useSearchParams } from 'next/navigation';
 import styles from './category.module.scss';
-import usePageMarker from '@/app/_hooks/usePageMarker';
 
 const category = [
   { index: 1, name: '밥', path: encodeURIComponent('밥') },
@@ -11,16 +10,14 @@ const category = [
   { index: 5, name: '후식', path: encodeURIComponent('후식') },
 ];
 
-const Category = () => {
+const Category = ({ ...rest }: { [property: string]: any }) => {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  const { resetPageMarker } = usePageMarker();
-
   const selectCategory = (param: string) => {
-    resetPageMarker();
     const searchParams = new URLSearchParams();
     searchParams.set('cat', param);
+    searchParams.set('page', '1');
     router.push(`/recipe?${searchParams.toString()}`);
   };
 
@@ -28,8 +25,9 @@ const Category = () => {
     <ul className={styles.category}>
       <li
         onClick={() => {
-          resetPageMarker();
-          router.push('/recipe');
+          const searchParams = new URLSearchParams();
+          searchParams.set('page', '1');
+          router.push(`/recipe?${searchParams.toString()}`);
         }}
         data-type={!searchParams.get('cat') ? 0 : null}>
         전체
